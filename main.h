@@ -9,8 +9,8 @@
 /* Functions Prototype*/
 int _putchar(char c);
 int _printf(const char *format, ...);
-void print_char(va_list args);
-void print_string(va_list args);
+int print_char(va_list args);
+int print_string(va_list args);
 
 /**
   * struct format_type - structure to identify the format
@@ -20,6 +20,6 @@ void print_string(va_list args);
 typedef struct format_type
 {
 	char *specifier;
-	void (*f)(va_list args);
+	int (*f)(va_list args);
 } f_tp;
 #endif
