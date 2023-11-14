@@ -10,6 +10,7 @@ int _printf(const char *format, ...)
 {
 	unsigned int i = 0, j = 0;
 	va_list args;
+	int fd = 1;
 	f_tp formats[] = {{"c", print_char}};
 
 	va_start(args, format);
@@ -21,9 +22,9 @@ int _printf(const char *format, ...)
 			while (j < 1)
 			{
 				if (format[i + 1] == *formats[j].specifier)
-					formats[j].f(args);
+					formats[j].f(fd, args);
 				else
-					putchar(format[i + 1]);
+					write(fd, &(format[i + 1]), 1);
 				j++;
 			}
 			i++;
@@ -33,7 +34,7 @@ int _printf(const char *format, ...)
 				format[i] == ' ' || format[i] == '[' ||
 				format[i] == ']' || format[i] == ':' ||
 				format[i] == '\'' || format[i] == '.')
-			putchar(format[i]);
+			write(fd, &(format[i]), 1);
 		i++;
 	}
 	va_end(args);
@@ -44,10 +45,13 @@ int _printf(const char *format, ...)
 /**
   * print_char - print a char type parameters
   * @args: a list of variadic arguments
+  * @fd: an int parameter
   *
   * Return: Nothing
   */
-void print_char(va_list args)
+void print_char(int fd, va_list args)
 {
-	putchar(va_arg(args, int));
+	int c = va_arg(args, int);
+
+	write(fd, &c, sizeof(int));
 }
