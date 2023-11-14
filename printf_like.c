@@ -4,48 +4,33 @@
   * _printf - a function that produces output according to a format
   * @format: a character string
   *
-  * Return: Always 0
+  * Return: Number of printed characters
   */
 int _printf(const char *format, ...)
 {
-	unsigned int i = 0, j = 0;
+	int c = 0;
 	va_list args;
-	f_tp formats[] = {{"c", print_char},
-			{"s", print_string}};
 
-	if (format == NULL || format[i] == '\0' ||
-			(format[i] == '%' && format[i + 1] == '\0'))
+	if (format == NULL ||
+			(format[c] == '%' && format[c + 1] == '\0'))
 		return (-1);
 
 	va_start(args, format);
-	while (format != NULL && format[i] != '\0')
+	while (*format != '\0')
 	{
-		j = 0;
-		if (format[i] == '%')
+		if (*format == '%')
 		{
-			if (format[i + 1] == 'c' || format[i + 1] == 's')
-			{
-				while (j < 2)
-				{
-					if (format[i + 1] == *formats[j].specifier)
-						formats[j].f(args);
-					j++;
-				}
-			}
-			else if (format[i + 1] == '%')
-				_putchar('%');
-			else
-			{
-				_putchar(format[i]);
-				_putchar(format[i + 1]);
-			}
-			i++;
+			format++;
+			c = _specifier(format, args, c);
+			format++;
 		}
 		else
-			_putchar(format[i]);
-		i++;
+		{
+			_putchar(*format);
+			c++;
+			format++;
+		}
 	}
 	va_end(args);
-	return (i);
+	return (c);
 }
-
