@@ -4,11 +4,12 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <string.h>
 
 /* Functions Prototype*/
 int _printf(const char *format, ...);
 void print_char(int fd, va_list args);
+void print_string(int fd, va_list args);
 
 /**
   * struct format_type - structure to identify the format
