@@ -18,7 +18,6 @@ int _specifier(const char *s, va_list args, int count)
 			break;
 		case 's':
 			print_string(args, count);
-			count++;
 			break;
 		case '%':
 			_putchar('%');
@@ -27,7 +26,6 @@ int _specifier(const char *s, va_list args, int count)
 		default:
 			_putchar('%');
 			_putchar(*s);
-			count++;
 	}
 	return (count);
 }
