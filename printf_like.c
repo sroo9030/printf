@@ -13,6 +13,10 @@ int _printf(const char *format, ...)
 	f_tp formats[] = {{"c", print_char},
 			{"s", print_string}};
 
+	if (format == NULL || format[i] == '\0' ||
+			(format[i] == '%' && format[i + 1] == '\0'))
+		return (-1);
+
 	va_start(args, format);
 	while (format != NULL && format[i] != '\0')
 	{
@@ -42,6 +46,6 @@ int _printf(const char *format, ...)
 		i++;
 	}
 	va_end(args);
-	return (0);
+	return (i);
 }
 
